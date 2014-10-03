@@ -19,6 +19,9 @@ endif
 ifeq ($(DJANGO_VERSION),1.6)
 	bin/buildout -c buildout16.cfg
 endif
+ifeq ($(DJANGO_VERSION),1.7)
+	bin/buildout -c buildout17.cfg
+endif
 
 test:
 	bin/test
