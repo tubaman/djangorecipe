@@ -401,3 +401,26 @@ class TestBoilerplate(BaseTestRecipe):
 
         self.assertEqual(versions['1.2']['settings'] % settings_dict,
                           settings)
+
+    def test_boilerplate_1_7(self):
+        """Test the boilerplate for django 1.7."""
+
+        recipe_args = copy.deepcopy(self.recipe_initialisation)
+
+        recipe_args[0]['versions'] = {'django': '1.7.4'}
+        recipe = Recipe(*recipe_args)
+
+        secret = '$55upfci7a#gi@&e9o1-hb*k+f$3+(&b$j=cn67h#22*0%-bj0'
+        recipe.generate_secret = lambda: secret
+
+        project_dir = os.path.join(self.buildout_dir, 'project')
+        recipe.create_project(project_dir)
+        settings = open(os.path.join(project_dir, 'settings.py')).read()
+        settings_dict = {'project': self.recipe.options['project'],
+                         'secret': secret,
+                         'urlconf': self.recipe.options['urlconf'],
+                         }
+        from djangorecipe.boilerplate import versions
+
+        self.assertEqual(versions['1.7']['settings'] % settings_dict,
+                          settings)
