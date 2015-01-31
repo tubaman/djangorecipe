@@ -398,6 +398,21 @@ STATIC_URL = '/static/'
 """
 
 
+wsgi_template = """
+# WSGI config for %(project)s project.
+#
+# It exposes the WSGI callable as a module-level variable named ``application``.
+#
+# For more information on this file, see
+# https://docs.djangoproject.com/en/1.7/howto/deployment/wsgi/
+
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "%(project)s.settings")
+
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+"""
+
 versions = {
     '1.2': {
         'settings': settings_template_1_2,
@@ -414,6 +429,7 @@ versions = {
     '1.7': {
         'settings': settings_template_1_7,
         'urls': urls_template_1_7,
+        'wsgi': wsgi_template,
         'production_settings': production_settings,
         'development_settings': development_settings,
         },

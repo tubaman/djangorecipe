@@ -161,6 +161,11 @@ class Recipe(object):
             os.path.join(project_dir, 'settings.py'),
             config['settings'], template_vars)
 
+        if version == '1.7':
+            self.create_file(
+                os.path.join(project_dir, 'wsgi.py'),
+                config['wsgi'], template_vars)
+
         # Create the media and templates directories for our
         # project
         os.mkdir(os.path.join(project_dir, 'media'))
